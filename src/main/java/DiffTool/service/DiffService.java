@@ -23,7 +23,7 @@ public class DiffService {
     }
 
     private static boolean containsIgnoreSubstrings(String string) {
-        String[] ignoreList = IgnoreList.ignoreSubstrings;
+        String[] ignoreList = IgnoreList.getIgnoreList();
         for (String ignoreSubstring : ignoreList) {
             if (string.contains(ignoreSubstring)) {
                 return true;
