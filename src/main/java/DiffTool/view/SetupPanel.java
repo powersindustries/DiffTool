@@ -2,28 +2,28 @@ package DiffTool.view;
 
 import DiffTool.controller.SetPathButtonListener;
 import DiffTool.controller.SubmitButtonListener;
+import DiffTool.event.UIPathsSetHandler;
+import DiffTool.service.DiffService;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class SetupPanel extends JPanel {
-    private JButton path1Button;
-    private JButton path2Button;
-    private JButton submitbutton;
 
     public SetupPanel() {
-
-        path1Button = new JButton("Set Path 1");
+        // UI implementation.
+        JButton path1Button = new JButton("Set Path 1");
         path1Button.setActionCommand("path1");
         path1Button.addActionListener(new SetPathButtonListener());
 
-        path2Button = new JButton("Set Path 2");
+        JButton path2Button = new JButton("Set Path 2");
         path2Button.setActionCommand("path2");
         path2Button.addActionListener(new SetPathButtonListener());
 
-        submitbutton = new JButton("Submit");
-        submitbutton.addActionListener(new SubmitButtonListener());
-        submitbutton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        JButton submitButton = new JButton("Submit");
+        submitButton.addActionListener(new SubmitButtonListener());
+        submitButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        submitButton.setEnabled(false);
 
         JPanel setPathsPanel = new JPanel();
         setPathsPanel.setLayout(new BoxLayout(setPathsPanel, BoxLayout.X_AXIS));
@@ -33,9 +33,15 @@ public class SetupPanel extends JPanel {
         JPanel verticalPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         verticalPanel.setLayout(new BoxLayout(verticalPanel, BoxLayout.Y_AXIS));
         verticalPanel.add(setPathsPanel);
-        verticalPanel.add(submitbutton);
+        verticalPanel.add(submitButton);
 
         add(verticalPanel);
 
+
+        // Data handlers.
+        UIPathsSetHandler uiPathsSetHandler = new UIPathsSetHandler();
+        uiPathsSetHandler.setSubmitButton(submitButton);
+
+        DiffService.addPathsChangedListeners(uiPathsSetHandler);
     }
 }

@@ -1,6 +1,8 @@
 package DiffTool.service;
 
+import DiffTool.event.UIPathsSetHandler;
 import DiffTool.model.IgnoreList;
+import DiffTool.model.PathsModel;
 
 import java.io.IOException;
 import java.nio.file.FileVisitOption;
@@ -11,15 +13,26 @@ import java.util.*;
 import java.util.stream.Stream;
 
 public class DiffService {
-    private static Path path1;
-    private static Path path2;
+
+    private static PathsModel paths1Model = new PathsModel();
+    private static PathsModel paths2Model = new PathsModel();
+
+    public static Boolean bothPathsSet() {
+        return !paths1Model.getPath().toString().isBlank() &&
+               !paths2Model.getPath().toString().isBlank();
+    }
 
     public static void setPath1(String path) {
-        path1 = Paths.get(path);
+        paths1Model.setPath(path);
     }
 
     public static void setPath2(String path) {
-        path2 = Paths.get(path);
+        paths2Model.setPath(path);
+    }
+
+    public static void addPathsChangedListeners(UIPathsSetHandler pathsSetHandler) {
+        paths1Model.addDataChangeListener(pathsSetHandler);
+        paths2Model.addDataChangeListener(pathsSetHandler);
     }
 
     private static boolean containsIgnoreSubstrings(String string) {
@@ -61,8 +74,8 @@ public class DiffService {
     }
 
     public static void performDiff(){
-        Map<String, Integer> root1Map = getPathMap(path1);
-        Map<String, Integer> root2Map = getPathMap(path2);
+        Map<String, Integer> root1Map = getPathMap(paths1Model.getPath());
+        Map<String, Integer> root2Map = getPathMap(paths2Model.getPath());
 
         List<String> foundFiles = new ArrayList<>();
         List<String> extraFiles = new ArrayList<>();
@@ -90,8 +103,8 @@ public class DiffService {
 
         // Iterate through found files and see if they match.
         for (String file : foundFiles) {
-            String path1File = path1 + file;
-            String path2File = path2 + file;
+            String path1File = paths1Model.getPath() + file;
+            String path2File = paths2Model.getPath() + file;
 
             try {
                 List<String> path1Lines = Files.readAllLines(Paths.get(path1File));
