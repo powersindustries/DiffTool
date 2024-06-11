@@ -2,6 +2,7 @@ package DiffTool.view;
 
 import DiffTool.controller.SetPathButtonListener;
 import DiffTool.controller.SubmitButtonListener;
+import DiffTool.event.DiffResultsHandler;
 import DiffTool.event.UIPathsSetHandler;
 import DiffTool.service.DiffService;
 
@@ -34,25 +35,40 @@ public class SetupPanel extends JPanel {
         path2Text.setEditable(false);
         path2Text.setText("Path 2: *");
 
+        JTextArea diffResultText = new JTextArea();
+        diffResultText.setEditable(false);
+        diffResultText.setLineWrap(true);
+        diffResultText.setWrapStyleWord(true);
+        diffResultText.setText("");
+
+        JScrollPane resultsScrollPane = new JScrollPane(diffResultText);
+        resultsScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        resultsScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        resultsScrollPane.setPreferredSize(new Dimension(800, 600));
+
         JPanel setPathsPanel = new JPanel();
         setPathsPanel.setLayout(new BoxLayout(setPathsPanel, BoxLayout.X_AXIS));
         setPathsPanel.add(path1Button);
         setPathsPanel.add(path2Button);
 
-        JPanel verticalPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        JPanel verticalPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         verticalPanel.setLayout(new BoxLayout(verticalPanel, BoxLayout.Y_AXIS));
         verticalPanel.add(setPathsPanel);
         verticalPanel.add(path1Text);
         verticalPanel.add(path2Text);
         verticalPanel.add(submitButton);
+        verticalPanel.add(resultsScrollPane);
 
-        add(verticalPanel);
+        add(verticalPanel, BorderLayout.CENTER);
 
 
         // Event handlers.
         UIPathsSetHandler uiPathsSetHandler = new UIPathsSetHandler();
         uiPathsSetHandler.setUIPrimitives(submitButton, path1Text, path2Text);
-
         DiffService.addPathsChangedListeners(uiPathsSetHandler);
+
+        DiffResultsHandler diffResultsHandler = new DiffResultsHandler();
+        diffResultsHandler.setDiffText(diffResultText);
+        DiffService.addDiffResultsListener(diffResultsHandler);
     }
 }

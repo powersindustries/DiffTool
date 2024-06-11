@@ -30,7 +30,7 @@ public class UIPathsSetHandler implements PathsSetListener {
             path2Text.setText("Path 2: " + path2);
         }
 
-        if (submitButton != null && path1Text != null && path2Text != null){
+        if (submitButton != null && !path1.isEmpty() && !path2.isEmpty()) {
             submitButton.setEnabled(true);
         }
     }

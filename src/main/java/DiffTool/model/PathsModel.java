@@ -19,7 +19,7 @@ public class PathsModel {
     public void setPath(String path1) {
         this.path = Path.of(path1);
 
-        fireDataChangeEvent(new PathsSetEvent(this, true));
+        fireDataChangeEvent(new PathsSetEvent(this));
     }
 
     public void addDataChangeListener(PathsSetListener listener) {

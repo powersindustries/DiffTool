@@ -1,6 +1,8 @@
 package DiffTool.service;
 
+import DiffTool.event.DiffResultsHandler;
 import DiffTool.event.UIPathsSetHandler;
+import DiffTool.model.DiffResultsModel;
 import DiffTool.model.IgnoreList;
 import DiffTool.model.PathsModel;
 
@@ -16,6 +18,7 @@ public class DiffService {
 
     private static PathsModel paths1Model = new PathsModel();
     private static PathsModel paths2Model = new PathsModel();
+    private static DiffResultsModel diffResult = new DiffResultsModel();
 
     public static void setPath1(String path) {
         paths1Model.setPath(path);
@@ -33,9 +36,17 @@ public class DiffService {
         return paths2Model.getPath();
     }
 
+    public static String getDiffResult () {
+        return diffResult.getDiffResult();
+    }
+
     public static void addPathsChangedListeners(UIPathsSetHandler pathsSetHandler) {
         paths1Model.addDataChangeListener(pathsSetHandler);
         paths2Model.addDataChangeListener(pathsSetHandler);
+    }
+
+    public static void addDiffResultsListener(DiffResultsHandler diffResultsHandler) {
+        diffResult.addDataChangeListener(diffResultsHandler);
     }
 
     private static boolean containsIgnoreSubstrings(String string) {
@@ -125,20 +136,21 @@ public class DiffService {
         }
 
         // Print results.
-        System.out.println("Extra Files.");
-        System.out.println(Arrays.toString(extraFiles.toArray()));
-        System.out.println();
+        String result = "";
+        result += "Extra Files: \n";
+        result += Arrays.toString(extraFiles.toArray()) + "\n\n";
 
-        System.out.println("Missing Files.");
-        System.out.println(Arrays.toString(missingFiles.toArray()));
-        System.out.println();
+        result += "Missing Files: \n";
+        result += Arrays.toString(missingFiles.toArray()) + "\n\n";
 
-        System.out.println("Files with different content.");
-        System.out.println(Arrays.toString(fileChanges.toArray()));
-        System.out.println();
+        result += "Changed files: \n";
+        result += Arrays.toString(fileChanges.toArray()) + "\n\n";
 
-        System.out.println("Fiels with same content.");
-        System.out.println(Arrays.toString(sameFiles.toArray()));
+        result += "Unchanged files: \n";
+        result += Arrays.toString(sameFiles.toArray());
+
+        diffResult.setDiffResult(result);
+
     }
 
 }
