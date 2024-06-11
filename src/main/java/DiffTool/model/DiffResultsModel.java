@@ -1,6 +1,7 @@
 package DiffTool.model;
 
 import DiffTool.event.*;
+import DiffTool.event.listener.DiffResultsListener;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -2,8 +2,8 @@ package DiffTool.view;
 
 import DiffTool.controller.SetPathButtonListener;
 import DiffTool.controller.SubmitButtonListener;
-import DiffTool.event.DiffResultsHandler;
-import DiffTool.event.UIPathsSetHandler;
+import DiffTool.event.handler.DiffResultsHandler;
+import DiffTool.event.handler.UIPathsSetHandler;
 import DiffTool.service.DiffService;
 
 import javax.swing.*;

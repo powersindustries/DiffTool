@@ -1,7 +1,7 @@
 package DiffTool.model;
 
 import DiffTool.event.PathsSetEvent;
-import DiffTool.event.PathsSetListener;
+import DiffTool.event.listener.PathsSetListener;
 
 import java.nio.file.Path;
 import java.util.ArrayList;

@@ -1,5 +1,7 @@
-package DiffTool.event;
+package DiffTool.event.handler;
 
+import DiffTool.event.PathsSetEvent;
+import DiffTool.event.listener.PathsSetListener;
 import DiffTool.service.DiffService;
 
 import javax.swing.*;

@@ -1,7 +1,7 @@
 package DiffTool.service;
 
-import DiffTool.event.DiffResultsHandler;
-import DiffTool.event.UIPathsSetHandler;
+import DiffTool.event.handler.DiffResultsHandler;
+import DiffTool.event.handler.UIPathsSetHandler;
 import DiffTool.model.DiffResultsModel;
 import DiffTool.model.IgnoreList;
 import DiffTool.model.PathsModel;

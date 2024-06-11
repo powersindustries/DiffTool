@@ -1,4 +1,6 @@
-package DiffTool.event;
+package DiffTool.event.listener;
+
+import DiffTool.event.DiffResultsEvent;
 
 import java.util.EventListener;
 
