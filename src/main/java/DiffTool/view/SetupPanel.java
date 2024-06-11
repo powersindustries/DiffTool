@@ -11,6 +11,7 @@ import java.awt.*;
 public class SetupPanel extends JPanel {
 
     public SetupPanel() {
+
         // UI implementation.
         JButton path1Button = new JButton("Set Path 1");
         path1Button.setActionCommand("path1");
@@ -25,6 +26,14 @@ public class SetupPanel extends JPanel {
         submitButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         submitButton.setEnabled(false);
 
+        JTextArea path1Text = new JTextArea();
+        path1Text.setEditable(false);
+        path1Text.setText("Path 1: *");
+
+        JTextArea path2Text = new JTextArea();
+        path2Text.setEditable(false);
+        path2Text.setText("Path 2: *");
+
         JPanel setPathsPanel = new JPanel();
         setPathsPanel.setLayout(new BoxLayout(setPathsPanel, BoxLayout.X_AXIS));
         setPathsPanel.add(path1Button);
@@ -33,14 +42,16 @@ public class SetupPanel extends JPanel {
         JPanel verticalPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         verticalPanel.setLayout(new BoxLayout(verticalPanel, BoxLayout.Y_AXIS));
         verticalPanel.add(setPathsPanel);
+        verticalPanel.add(path1Text);
+        verticalPanel.add(path2Text);
         verticalPanel.add(submitButton);
 
         add(verticalPanel);
 
 
-        // Data handlers.
+        // Event handlers.
         UIPathsSetHandler uiPathsSetHandler = new UIPathsSetHandler();
-        uiPathsSetHandler.setSubmitButton(submitButton);
+        uiPathsSetHandler.setUIPrimitives(submitButton, path1Text, path2Text);
 
         DiffService.addPathsChangedListeners(uiPathsSetHandler);
     }

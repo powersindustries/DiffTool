@@ -7,7 +7,7 @@ public class MainFrame extends JFrame {
     public MainFrame() {
 
         setTitle("Diff Tool");
-        setSize(400, 300);
+        setSize(1080, 720);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 

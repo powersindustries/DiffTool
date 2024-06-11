@@ -17,17 +17,20 @@ public class DiffService {
     private static PathsModel paths1Model = new PathsModel();
     private static PathsModel paths2Model = new PathsModel();
 
-    public static Boolean bothPathsSet() {
-        return !paths1Model.getPath().toString().isBlank() &&
-               !paths2Model.getPath().toString().isBlank();
-    }
-
     public static void setPath1(String path) {
         paths1Model.setPath(path);
     }
 
     public static void setPath2(String path) {
         paths2Model.setPath(path);
+    }
+
+    public static Path getPath1 () {
+        return paths1Model.getPath();
+    }
+
+    public static Path getPath2 () {
+        return paths2Model.getPath();
     }
 
     public static void addPathsChangedListeners(UIPathsSetHandler pathsSetHandler) {
